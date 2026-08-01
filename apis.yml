@@ -1,18 +1,81 @@
 aid: aerin-medical
 name: Aerin Medical
-description: 'Aerin Medical is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Aerin Medical, Inc. is a privately held medical-device company at 2565 Leghorn
+  Street, Mountain View, California, with a Singapore entity at 60 Albert Street. It develops
+  temperature-controlled radiofrequency devices that let ear, nose and throat physicians treat
+  chronic nasal conditions in the office under local anesthetic, without incisions: the VivAer
+  Stylus for nasal airway obstruction and the RhinAer Stylus for chronic rhinitis, both
+  FDA-cleared and delivered through the Aerin Console. More than 200,000 patients have been
+  treated as of March 2026. Aerin Medical operates no developer API programme — no portal, no
+  documentation, no keys, no SDKs, no MCP server, no agent card and no status page. Its
+  corporate site does serve an anonymously readable WordPress REST API, and one namespace of it
+  is a genuinely useful first-party dataset: the doctor finder behind
+  aerinmedical.com/find-ent-doctor/, which returns 1,012 treating ENT locations with
+  coordinates and supports free-text, proximity, product and Center of Excellence filters. The
+  company also publishes a real Coordinated Vulnerability Disclosure Policy for the Aerin
+  Console, though it is not advertised at /.well-known/security.txt.'
+image: https://aerinmedical.com/wp-content/uploads/2020/02/Aerin_Logo-01.png
 url: https://raw.githubusercontent.com/api-evangelist/aerin-medical/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pipeline-2026-07-31
+x-sector: medical-devices
+x-api-posture: no-product-api
 specificationVersion: '0.20'
 created: '2026-07-31'
 modified: '2026-07-31'
 tags:
 - Company
-apis: []
+- Medical Devices
+- Healthcare
+- ENT
+- Otolaryngology
+- Rhinology
+- Radiofrequency Ablation
+- Nasal Airway Obstruction
+- Chronic Rhinitis
+- Physician Locator
+- Private Company
+apis:
+- name: Aerin Medical Site API (WordPress REST)
+  description: 'Anonymously readable REST surface served by aerinmedical.com at /wp-json — 321
+    routes across 15 namespaces. The substantive part is Aerin Medical''s own doctor-finder
+    plugin (em-locator/v1): 1,012 ENT practice locations trained on VivAer or RhinAer, each
+    with name, formatted address, phone, latitude/longitude and a public permalink, filterable
+    by free text, by lat/lng proximity, by product (RhinAer 783 locations, VivAer 920) and by
+    Center of Excellence designation (60 locations). Site search (wp/v2/search, 2,242 items),
+    oEmbed and the route-discovery documents also answer anonymously, while every standard
+    wp/v2 content collection returns 401. This is an incidental site surface, not an API
+    product: Aerin Medical publishes no documentation, keys, SDKs, support channel, rate-limit
+    policy, status page or terms of use for it.'
+  humanURL: https://aerinmedical.com/find-ent-doctor/
+  baseURL: https://aerinmedical.com/wp-json
+  tags:
+  - Physician Locator
+  - Geospatial Search
+  - Content
+  - WordPress
+  - CMS
+  properties:
+  - type: OpenAPI
+    url: openapi/aerin-medical-site-openapi.yml
+  - type: Overlay
+    url: overlays/aerin-medical-site-overlay.yaml
+  - type: Authentication
+    url: authentication/aerin-medical-authentication.yml
+  - type: Conventions
+    url: conventions/aerin-medical-conventions.yml
+  - type: ErrorCatalog
+    url: errors/aerin-medical-problem-types.yml
+  - type: DataModel
+    url: data-model/aerin-medical-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/aerin-medical-lifecycle.yml
+  - type: Conformance
+    url: conformance/aerin-medical-conformance.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +83,79 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://aerinmedical.com/
+- type: About
+  url: https://aerinmedical.com/company/about-us/
+- type: Blog
+  url: https://aerinmedical.com/company/news-and-media/
+- type: News
+  url: https://aerinmedical.com/company/news-and-media/
+- type: Support
+  url: https://aerinmedical.com/contact-us/
+- type: Contact
+  url: https://aerinmedical.com/contact-us/
+- type: Careers
+  url: https://aerinmedical.com/company/careers/
+- type: Leadership
+  url: https://aerinmedical.com/company/leadership/
+- type: TermsOfService
+  url: https://aerinmedical.com/general-terms-of-use/
+- type: PrivacyPolicy
+  url: https://aerinmedical.com/privacy-policy/
+- type: Security
+  url: https://aerinmedical.com/cybersecurity/
+- type: Compliance
+  url: https://aerinmedical.com/compliance/
+- type: Patents
+  url: https://aerinmedical.com/patents/
+- type: Documentation
+  url: https://aerinmedical.com/ifu/
+- type: SafetyInformation
+  url: https://aerinmedical.com/important-safety-information/
+- type: GitHubOrganization
+  url: https://github.com/AerinMedical
+- type: LinkedIn
+  url: https://www.linkedin.com/company/aerin-medical
+- type: Twitter
+  url: https://twitter.com/AerinMedical
+- type: Facebook
+  url: https://www.facebook.com/aerinmedical
+- type: Instagram
+  url: https://www.instagram.com/aerinmedical/
+- type: SecondaryMarket
   url: https://forgeglobal.com/aerin-medical_stock/
+- type: WellKnown
+  url: well-known/aerin-medical-well-known.yml
+- type: DomainSecurity
+  url: security/aerin-medical-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/aerin-medical-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/aerin-medical-authentication.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/aerin-medical-llms.txt
+x-enrichment:
+  date: '2026-07-31'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1
+  notes: >-
+    No product API. Contract discovery probed aerinmedical.com, vivaer.com and rhinaer.com for
+    OpenAPI on the host root, GraphQL, MCP tools/list, A2A agent cards at both the canonical
+    and legacy well-known paths, and the full /.well-known/ set — every one 404. The one real
+    machine-readable contract is the site's anonymous WordPress REST API at
+    https://aerinmedical.com/wp-json (15 namespaces, 321 routes), whose access posture is
+    inverted: the standard wp/v2 content collections are 401-blocked by iThemes Security while
+    the company's own em-locator/v1 doctor finder is wide open with CORS *, returning 1,012
+    treating ENT locations. An OpenAPI 3.1 with 15 verified anonymous operations was derived
+    from that route index plus direct probing; the seven aerin-namespace POST form routes are
+    listed without request bodies because they declare no args and have side effects, so they
+    were not invoked. Searched and found a real Coordinated Vulnerability Disclosure Policy
+    (security@aerinmedical.com, 5-business-day SLA, safe harbour) and a published corporate
+    compliance programme. The locator endpoint was observed over-returning a Maps API key and
+    internal CRM fields; recorded as an exposure without reproducing the values. No packages,
+    MCP server, agent card, OAuth scopes, sandbox, CLI, changelog, webhooks or trust center
+    exist; those artifacts were deliberately not written rather than stubbed. No idempotency
+    contract exists, so no Idempotency pointer was emitted.

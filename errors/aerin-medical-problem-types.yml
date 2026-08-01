@@ -1,0 +1,123 @@
+generated: '2026-07-31'
+method: derived
+source: observed error responses from https://aerinmedical.com/wp-json (probed 2026-07-31)
+format: wordpress-rest
+rfc9457: false
+envelope:
+  media_type: application/json
+  fields:
+  - name: code
+    type: string
+    description: Machine-readable error slug.
+  - name: message
+    type: string
+    description: Human-readable message.
+  - name: data.status
+    type: integer
+    description: HTTP status code, repeated in the body.
+  note: >-
+    This is the stock WordPress REST error envelope, not RFC 9457 problem+json. There is no
+    `type` URI, no `instance`, no error documentation page, and no published error reference —
+    the catalogue below is what was observed live, not what Aerin Medical documents.
+problems:
+- status: 401
+  code: itsec_rest_api_access_restricted
+  title: REST API access restricted
+  detail: >-
+    "You do not have sufficient permission to access this endpoint. Access to REST API
+    requests is restricted." Emitted by the iThemes Security plugin, not by WordPress core.
+  cause: The site restricts anonymous access to standard wp/v2 content collections.
+  remediation: >-
+    Not remediable by a public caller — no public credential exists. Use `searchSite` or the
+    locator routes, which are open.
+  observed_on:
+  - /wp/v2/posts
+  - /wp/v2/pages
+  - /wp/v2/media
+  - /wp/v2/categories
+  - /wp/v2/tags
+  - /wp/v2/users
+  - /wp/v2/comments
+  - /wp/v2/types
+  - /wp/v2/taxonomies
+  - /wp/v2/statuses
+  - /wp/v2/blocks
+  - /wp/v2/navigation
+- status: 401
+  code: rest_forbidden
+  title: Not allowed
+  detail: '"Sorry, you are not allowed to do that."'
+  cause: WordPress core capability check failed for an anonymous caller.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/settings
+  - /wp-site-health/v1/tests/background-updates
+- status: 401
+  code: rest_cannot_view
+  title: Cannot view resource
+  detail: '"Sorry, you are not allowed to view menu items."'
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/menu-items
+- status: 401
+  code: rest_cannot_view_plugins
+  title: Cannot manage plugins
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/plugins
+- status: 401
+  code: rest_cannot_view_themes
+  title: Cannot view themes
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/themes
+- status: 401
+  code: rest_block_type_cannot_view
+  title: Cannot manage block types
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/block-types
+- status: 401
+  code: rest_cannot_manage_templates
+  title: Cannot access templates
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/templates
+- status: 401
+  code: rest_cannot_read
+  title: Cannot read font families
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/font-families
+- status: 401
+  code: rest_cannot_read_global_styles
+  title: Cannot access global styles
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp/v2/global-styles/themes/{theme}
+- status: 401
+  code: rest_cannot_export_templates
+  title: Cannot export templates
+  cause: WordPress core capability check failed.
+  remediation: Administrative route; no public access path.
+  observed_on:
+  - /wp-block-editor/v1/export
+non_errors:
+  note: >-
+    Two behaviours that look like errors but are not — recorded so a client does not treat
+    them as failures.
+  cases:
+  - condition: page beyond the last page of a collection
+    behaviour: 'HTTP 200 with an empty JSON array and `X-WP-Total: 0` (observed at
+      /em-locator/v1/locations?page=999).'
+  - condition: unrecognised query parameter on the locator
+    behaviour: >-
+      Silently ignored — the full unfiltered collection is returned with `X-WP-Total: 1012`.
+      A typo in a filter name therefore fails open rather than erroring.

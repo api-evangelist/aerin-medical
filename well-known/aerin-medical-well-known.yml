@@ -1,0 +1,46 @@
+generated: '2026-07-31'
+method: probed
+source: live GET of the /.well-known/ surface on every Aerin Medical host
+summary: >-
+  No /.well-known/ document is served on any Aerin Medical host. aerinmedical.com,
+  vivaer.com and rhinaer.com all return HTTP 404 for every RFC 8615 path probed —
+  including security.txt, despite the company operating a real Coordinated Vulnerability
+  Disclosure Policy at https://aerinmedical.com/cybersecurity/ that is NOT advertised at
+  /.well-known/security.txt. Publishing an RFC 9116 security.txt pointing at that policy
+  is the single cheapest discovery win available to this provider.
+hosts:
+- host: https://aerinmedical.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /api-docs, status: 404}
+  - {path: /robots.txt, status: 200, note: served; disallows /wp-admin/ only}
+  - {path: /sitemap.xml, status: 200, note: Yoast sitemap index}
+- host: https://vivaer.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+- host: https://rhinaer.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+x-evidence:
+  fetched: '2026-07-31'
+  method: HTTP GET, redirects followed
+  note: >-
+    404 bodies on aerinmedical.com are the site's own themed 404 page (HTML), not a
+    catch-all 200 — no false-positive agent card is possible on these hosts.

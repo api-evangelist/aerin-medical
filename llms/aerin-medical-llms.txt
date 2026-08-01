@@ -1,0 +1,103 @@
+# Aerin Medical
+
+> Aerin Medical, Inc. is a privately held medical-device company at 2565 Leghorn Street,
+> Mountain View, California, with a Singapore entity at 60 Albert Street #16-01. It builds
+> temperature-controlled radiofrequency devices that let
+> ENT physicians treat chronic nasal conditions in the office under local anesthetic, without
+> incisions: VivAer (nasal airway obstruction) and RhinAer (chronic rhinitis), both FDA-cleared,
+> delivered through the Aerin Console and single-use styluses.
+
+Aerin Medical operates NO developer API programme. There is no developer portal, no API
+documentation, no keys, no SDKs, no CLI, no MCP server, no agent card, no webhooks, no status
+page and no terms of use for programmatic access. Its corporate site does, however, serve an
+anonymously readable WordPress REST API, and one part of it — the doctor finder — is a
+genuinely useful public dataset. Everything in this file was searched, probed or derived by
+API Evangelist on 2026-07-31; Aerin Medical publishes none of it.
+
+## APIs
+
+- [Aerin Medical Site API (WordPress REST)](https://aerinmedical.com/wp-json): 321 routes
+  across 15 namespaces. Anonymously readable: the `em-locator/v1` doctor finder, `wp/v2/search`,
+  the route-discovery documents, oEmbed, and the site footer. Anonymously blocked (HTTP 401,
+  `itsec_rest_api_access_restricted`): every standard `wp/v2` content collection.
+- [Doctor finder collection](https://aerinmedical.com/wp-json/em-locator/v1/locations): 1,012
+  treating ENT locations with name, address, phone, coordinates and permalink. Supports
+  `search`, `lat`+`lng` proximity, `product` and `designation` filters, and `page`/`per_page`
+  pagination with `X-WP-Total` / `X-WP-TotalPages` headers. `Access-Control-Allow-Origin: *`.
+- [Site search](https://aerinmedical.com/wp-json/wp/v2/search): 2,242 indexed items across the
+  post types `post`, `page`, `location`, `physician`, `alert`.
+
+## Specs
+
+- [OpenAPI 3.1 (derived)](openapi/aerin-medical-site-openapi.yml): 15 operations, derived by
+  API Evangelist from the provider's live route index plus direct probing. Not published by
+  Aerin Medical.
+- [Overlay](overlays/aerin-medical-site-overlay.yaml): what API Evangelist added on top of the
+  route index.
+- [Authentication](authentication/aerin-medical-authentication.yml)
+- [Conventions](conventions/aerin-medical-conventions.yml): pagination, filtering, CORS,
+  caching, error envelope. No idempotency contract exists.
+- [Error catalogue](errors/aerin-medical-problem-types.yml): observed WordPress REST errors.
+- [Data model](data-model/aerin-medical-data-model.yml): Location, Product, Designation.
+- [Lifecycle](lifecycle/aerin-medical-lifecycle.yml): no versioning policy, no deprecation
+  policy, no status page, no changelog.
+- [Conformance](conformance/aerin-medical-conformance.yml)
+- [Agent skills](skills/_index.yml)
+
+## Agent guidance
+
+- The site API is undocumented and unsupported. Cache aggressively, keep volume low, and treat
+  failure as expected.
+- Never call the `aerin/*` POST endpoints (`/aerin/contact`, `/aerin/newsletter`,
+  `/aerin/request-evaluation`, `/aerin/nose-score`, `/aerin/rhinitis-nose-score`,
+  `/aerin/locations`, `/aerin/google`). They submit real leads and health-related
+  self-assessments, declare no request schema, and offer no idempotency key — a retry is a
+  duplicate submission.
+- An unrecognised query parameter on the locator is silently ignored and returns the full
+  collection. Always check `X-WP-Total` to confirm a filter actually applied.
+- Do not surface the `plugin_settings` or `post.post_content` objects returned by the locator;
+  they carry a Maps API key and internal CRM fields that appear nowhere in the public directory.
+- VivAer and RhinAer efficacy and safety statements are regulated. Quote the company's own
+  wording and link https://aerinmedical.com/important-safety-information/ .
+
+## Docs
+
+- [Find an ENT doctor](https://aerinmedical.com/find-ent-doctor/)
+- [Instructions For Use library (US)](https://aerinmedical.com/ifu/)
+- [Instructions For Use library (EU)](https://aerinmedical.com/ifu-eu/)
+- [Important safety information](https://aerinmedical.com/important-safety-information/)
+- [Patents](https://aerinmedical.com/patents/)
+
+## Company
+
+- [Aerin Medical](https://aerinmedical.com/)
+- [About us](https://aerinmedical.com/company/about-us/)
+- [Leadership](https://aerinmedical.com/company/leadership/)
+- [News and media](https://aerinmedical.com/company/news-and-media/) — press releases are
+  published as WordPress *pages*, so both /feed/ and /company/news-and-media/feed/ return a
+  valid but EMPTY RSS document (0 items). Use `wp/v2/search?subtype=page` instead.
+- [Careers](https://aerinmedical.com/company/careers/)
+- [Contact](https://aerinmedical.com/contact-us/)
+- [VivAer](https://vivaer.com) · [RhinAer](https://rhinaer.com)
+
+## Security and compliance
+
+- [Coordinated Vulnerability Disclosure Policy](https://aerinmedical.com/cybersecurity/) —
+  report to security@aerinmedical.com, subject "Vulnerability Disclosure Program";
+  acknowledgement within 5 business days; safe harbour offered; scope is the Aerin Console.
+  Not advertised at /.well-known/security.txt, which returns 404.
+- [Compliance documents](https://aerinmedical.com/compliance/) — California Compliance
+  Disclosure, Code of Business Conduct and Ethics, AdvaMed Code of Ethics.
+- [Privacy policy](https://aerinmedical.com/privacy-policy/) ·
+  [Terms of use](https://aerinmedical.com/general-terms-of-use/)
+- No SOC 2, ISO 27001, HIPAA, PCI DSS or FedRAMP attestation is published; no trust center.
+
+## Not present
+
+Probed on 2026-07-31 across aerinmedical.com, vivaer.com and rhinaer.com — all 404: any
+`/.well-known/` document (security.txt, openid-configuration, oauth-authorization-server,
+api-catalog, ai-plugin.json, agent-card.json, agent.json), `/llms.txt`, `/openapi.json`,
+`/swagger.json`, `/api-docs`. No GraphQL endpoint, no MCP server, no AsyncAPI, no webhooks, no
+gRPC, no published SDK on npm/PyPI/Maven/NuGet/RubyGems/crates.io, no CLI, no Postman
+collection, no sandbox. The GitHub organisation https://github.com/AerinMedical exists and is
+first-party but publishes zero public repositories.

@@ -1,0 +1,60 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Aerin Medical Site API
+  version: 1.0.0
+extends: openapi/aerin-medical-site-openapi.yml
+x-apievangelist-generated: '2026-07-31'
+x-apievangelist-method: generated
+x-apievangelist-note: >-
+  Records what API Evangelist added on top of Aerin Medical's own machine-readable route
+  index. Aerin Medical publishes no OpenAPI; everything listed here is our enhancement, and
+  none of it is a claim the provider has made.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provenance: derived
+    x-apievangelist-derived-from: https://aerinmedical.com/wp-json/
+    x-apievangelist-derived-on: '2026-07-31'
+    x-apievangelist-provider-publishes-spec: false
+    x-apievangelist-api-posture: incidental-site-api
+- target: $.info
+  description: >-
+    Title, summary, description, contact and the whole narrative framing were authored by
+    API Evangelist. The WordPress route index carries only a site name and home URL.
+- target: $.tags
+  description: >-
+    The Discovery / Locator / Search / Forms / Embed tag set was authored by API Evangelist.
+    WordPress registers namespaces, not tags.
+- target: $.paths[*][*].operationId
+  description: >-
+    Every operationId was minted by API Evangelist. WordPress REST does not emit operation
+    identifiers.
+- target: $.paths[*][*].summary
+  description: All operation summaries and descriptions were authored by API Evangelist.
+- target: $.paths['/em-locator/v1/locations'].get.parameters
+  description: >-
+    The provider's route index declares `args: []` for this route — zero parameters. The
+    seven parameters documented (page, per_page, search, lat, lng, product, designation)
+    were each confirmed empirically against the live endpoint by observing changes in
+    X-WP-Total, ordering and the `distance` field. The product/designation term-ID
+    enumerations and their per-term location counts were read from the locator widget HTML
+    and then counted against the collection.
+- target: $.paths['/em-locator/v1/locations'].get.responses['200'].headers
+  description: >-
+    X-WP-Total / X-WP-TotalPages / Access-Control-Allow-Origin were observed on the wire and
+    documented by API Evangelist.
+- target: $.components.schemas.Location
+  description: >-
+    The Location schema was reverse-engineered from observed response bodies. Field-level
+    notes flagging the CRM and API-key oversharing in `plugin_settings` and `post` are API
+    Evangelist observations; the values themselves are deliberately not reproduced.
+- target: $.components.schemas.Error
+  description: >-
+    Derived from observed 401 bodies. See errors/aerin-medical-problem-types.yml for the full
+    observed catalogue.
+- target: $.paths['/aerin/contact'].post
+  description: >-
+    The seven aerin-namespace POST routes are documented as registered and public, with NO
+    request body, because the route index declares no arguments and the endpoints have side
+    effects. API Evangelist did not invoke them; inventing their payloads would have been
+    fabrication.

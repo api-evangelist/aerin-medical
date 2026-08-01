@@ -1,0 +1,60 @@
+generated: '2026-07-31'
+method: derived
+source: openapi/aerin-medical-site-openapi.yml + site search (2026-07-31)
+summary: >-
+  Aerin Medical operates no API programme, so there is no API lifecycle to speak of: no
+  status page, no deprecation policy, no SLA, no changelog, no roadmap, no versioning
+  commitment. The company's regulated-device lifecycle disclosures (Instructions For Use
+  library, patents, safety information) are recorded below because they are the real,
+  published lifecycle surface for this business — they are device documentation, not API
+  documentation, and are not wired as API-scoring pointers.
+versioning:
+  scheme: namespace-in-path (WordPress convention, not a stated policy)
+  current:
+    em-locator: v1
+    aerin: unversioned
+    wp: v2
+  policy_url: null
+  note: >-
+    The `aerin` namespace — the company's own routes — carries no version segment, so there
+    is no declared path for a breaking change.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: No RFC 8594 Sunset or Deprecation headers observed on any response.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: >-
+  No status.aerinmedical.com and no status page linked from the site. Hosting is WP Engine
+  (X-Powered-By), whose own status page covers the platform, not this site.
+changelog:
+  url: null
+  note: >-
+    https://aerinmedical.com/company/news-and-media/ is a corporate press-release index, not a
+    dated product or API changelog. Note that the WordPress RSS endpoints (/feed/ and
+    /company/news-and-media/feed/) return HTTP 200 with a valid but EMPTY feed — 0 items —
+    because releases are published as pages rather than posts, so there is no usable
+    subscribe surface either.
+roadmap:
+  url: null
+support:
+  channel: https://aerinmedical.com/contact-us/
+  email: customerservice@aerinmedical.com
+  phone: 833-484-8237
+  note: General customer service; no developer support channel exists.
+device_lifecycle_disclosures:
+  note: Regulated medical-device documentation, recorded for completeness. Not API artifacts.
+  instructions_for_use_us: https://aerinmedical.com/ifu/
+  instructions_for_use_eu: https://aerinmedical.com/ifu-eu/
+  safety_information: https://aerinmedical.com/important-safety-information/
+  patents: https://aerinmedical.com/patents/
+  compliance_index: https://aerinmedical.com/compliance/
+  cybersecurity_policy: https://aerinmedical.com/cybersecurity/
+gaps:
+- No status page for the anonymously reachable site API.
+- No deprecation or sunset policy for the unversioned `aerin` namespace.
+- No changelog distinguishing product news from technical change.

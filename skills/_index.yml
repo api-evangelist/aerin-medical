@@ -1,0 +1,21 @@
+generated: '2026-07-31'
+method: generated
+source: openapi/aerin-medical-site-openapi.yml
+note: >-
+  Skills packaged by API Evangelist against the anonymously readable aerinmedical.com site
+  API. Aerin Medical publishes no agent skills, no AGENTS.md and no developer documentation;
+  every operationId referenced below exists verbatim in the derived OpenAPI, which was itself
+  derived from the provider's live route index.
+skills:
+- file: aerin-medical-find-treating-ent.md
+  name: Find an ENT trained on Aerin procedures
+  description: Search the public doctor finder for practices offering VivAer or RhinAer,
+    by place, proximity, product and Center of Excellence designation.
+  api: openapi/aerin-medical-site-openapi.yml
+  operations: [listTreatingLocations, getLocatorWidget]
+- file: aerin-medical-search-site-content.md
+  name: Search Aerin Medical site content
+  description: Query the site search index for clinical studies, press releases and product
+    pages, and navigate the 401-gated wp/v2 collections correctly.
+  api: openapi/aerin-medical-site-openapi.yml
+  operations: [searchSite, getRouteIndex, getOEmbed]

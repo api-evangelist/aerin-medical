@@ -1,0 +1,49 @@
+generated: '2026-07-31'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: forgeglobal.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 19 20:15:48 2026 GMT
+  hsts: null
+- host: aerinmedical.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  3 04:56:49 2026 GMT
+  hsts: false
+domains:
+- domain: forgeglobal.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+- domain: aerinmedical.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+exposures:
+- id: locator-endpoint-overshares
+  surface: GET https://aerinmedical.com/wp-json/em-locator/v1/locations
+  observed: '2026-07-31'
+  severity: informational
+  finding: >-
+    The anonymously readable doctor-locator collection returns more than the public
+    directory data it renders. Every record echoes a `plugin_settings` object containing the
+    site's Google Maps browser API key and empty basic-auth credential fields, and a `post`
+    object whose `post_content` is a JSON blob carrying internal CRM fields — a Salesforce
+    record id, an account number and the named sales representative for that account —
+    alongside the public address and product flags. None of this is shown on
+    https://aerinmedical.com/find-ent-doctor/. 1,012 records are reachable without a
+    credential, with `Access-Control-Allow-Origin: *`.
+  recommendation: >-
+    Shape the locator response to the fields the front end actually renders; restrict the
+    Maps key by HTTP referrer; and route this to the existing Coordinated Vulnerability
+    Disclosure Policy contact (security@aerinmedical.com).
+  disclosure_note: >-
+    Recorded as an observation of a publicly reachable endpoint. The key value, account
+    numbers and personnel names are deliberately NOT reproduced anywhere in this repository.
+  reported: false

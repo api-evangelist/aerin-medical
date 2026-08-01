@@ -1,0 +1,117 @@
+generated: '2026-07-31'
+method: derived
+source: openapi/aerin-medical-site-openapi.yml + live probes of https://aerinmedical.com/wp-json
+summary: >-
+  Aerin Medical publishes no API documentation, so there is no stated convention contract.
+  Everything below was derived from the site's own WordPress REST route index and from
+  observed responses. The conventions are therefore WordPress REST conventions as configured
+  on this site, not commitments the company has made.
+authentication:
+  anonymous_read: true
+  style: none required for every operation catalogued
+  documented_scheme: WordPress application passwords (HTTP Basic)
+  authorization_endpoint: https://aerinmedical.com/wp-admin/authorize-application.php
+  note: >-
+    Application passwords are the built-in WordPress mechanism and are issued only to site
+    administrators. Aerin Medical issues no public credentials and has no developer sign-up.
+  restricted_routes: >-
+    The iThemes Security plugin blocks anonymous access to the standard wp/v2 content
+    collections; those return HTTP 401 with code `itsec_rest_api_access_restricted`.
+  artifact: authentication/aerin-medical-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No idempotency key header or parameter is documented or declared anywhere in the route
+    index. All catalogued read operations are naturally idempotent GETs; the aerin-namespace
+    POST form endpoints are side-effecting with no replay-protection contract.
+pagination:
+  style: page-number
+  params:
+  - name: page
+    default: 1
+    applies_to: [listTreatingLocations, searchSite]
+  - name: per_page
+    default: 10
+    maximum_declared: 100
+    applies_to: [listTreatingLocations, searchSite]
+  response_signalling:
+    headers:
+    - name: X-WP-Total
+      description: Total records matching the query.
+    - name: X-WP-TotalPages
+      description: Total pages available.
+    - name: Link
+      description: Standard WordPress rel=next/prev links.
+  exhaustion_behaviour: >-
+    A page beyond the last returns HTTP 200 with an empty array and `X-WP-Total: 0`
+    (observed at page=999).
+  observed:
+    locations_total: 1012
+    locations_total_pages: 102
+    search_total: 2242
+filtering:
+  free_text:
+    param: search
+    applies_to: [listTreatingLocations, searchSite]
+  geospatial:
+    params: [lat, lng]
+    applies_to: [listTreatingLocations]
+    behaviour: >-
+      Supplying both switches the collection into proximity mode — records are ordered by
+      distance and the `distance` field becomes a number in the unit given by
+      `plugin_settings.distance_unit` (miles) instead of the literal `false`.
+  taxonomy:
+    params: [product, designation]
+    value_form: WordPress term IDs, discoverable from GET /em-locator/v1/locator
+    applies_to: [listTreatingLocations]
+field_expansion:
+  supported: false
+  note: >-
+    No sparse-fieldset or expansion parameter. The locator returns the full record every
+    time, including three pre-rendered HTML fragments per location — responses are
+    presentation-coupled rather than data-shaped.
+content_negotiation:
+  request: query string only (no request bodies documented)
+  response: application/json; charset=UTF-8
+  oembed_formats: [json, xml]
+cors:
+  allow_origin: '*'
+  allow_headers: [Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type,
+    X-HTTP-Method-Override]
+  expose_headers: [X-WP-Total, X-WP-TotalPages, Link]
+  note: Fully open to browser callers on any origin.
+caching:
+  cache_control: max-age=600, must-revalidate
+  edge: WP Engine (X-Cache HIT/MISS, X-Cacheable SHORT)
+  conditional_requests: not observed
+request_tracing:
+  request_id_header: null
+  note: No correlation or request-id header is returned.
+rate_limiting:
+  documented: false
+  headers_observed: none
+  note: >-
+    No rate-limit headers and no published policy. Absence of a signal is not a guarantee of
+    absence of enforcement — the WP Engine edge may throttle independently.
+versioning:
+  style: namespace-in-path
+  namespaces_in_use: [em-locator/v1, aerin, wp/v2, oembed/1.0, custom-footer/v1]
+  note: >-
+    `aerin` — the company's own namespace — carries NO version segment at all, so there is
+    no forward path for a breaking change to those routes.
+  artifact: lifecycle/aerin-medical-lifecycle.yml
+error_envelope:
+  format: wordpress-rest
+  media_type: application/json
+  shape: '{code: string, message: string, data: {status: integer}}'
+  rfc9457: false
+  artifact: errors/aerin-medical-problem-types.yml
+robots:
+  x_robots_tag: noindex
+  note: 'API responses are served with `X-Robots-Tag: noindex`.'
+cross_links:
+  openapi: openapi/aerin-medical-site-openapi.yml
+  errors: errors/aerin-medical-problem-types.yml
+  authentication: authentication/aerin-medical-authentication.yml
+  lifecycle: lifecycle/aerin-medical-lifecycle.yml
+  data_model: data-model/aerin-medical-data-model.yml

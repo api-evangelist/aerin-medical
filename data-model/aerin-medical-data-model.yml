@@ -1,0 +1,94 @@
+generated: '2026-07-31'
+method: derived
+source: openapi/aerin-medical-site-openapi.yml + observed responses from https://aerinmedical.com/wp-json
+summary: >-
+  A small content-and-directory model. The one substantive entity is Location — a treating
+  ENT practice — related to the Product and Designation taxonomies that drive the doctor
+  finder. Physician and Alert exist as declared custom post types (they appear in the
+  wp/v2/search `subtype` enumeration) but their collections are 401-gated, so their fields
+  could not be observed.
+entities:
+- name: Location
+  description: An ENT practice location trained on Aerin procedures, as listed at
+    https://aerinmedical.com/find-ent-doctor/.
+  post_type: location
+  identifier: ID (WordPress post ID)
+  slug_field: post.post_name
+  public_url: permalink (https://aerinmedical.com/location/{slug}/)
+  count_observed: 1012
+  source_operation: openapi/aerin-medical-site-openapi.yml#listTreatingLocations
+  fields:
+  - {name: ID, type: integer, role: identifier}
+  - {name: post.post_title, type: string, role: display name (practice or physician name)}
+  - {name: address, type: string}
+  - {name: formatted_address, type: string, note: geocoded display form}
+  - {name: lat, type: string}
+  - {name: lng, type: string}
+  - {name: distance, type: number|boolean, note: populated only in proximity mode}
+  - {name: phone, type: string}
+  - {name: email, type: string, note: observed empty on all sampled records}
+  - {name: website, type: string, note: observed empty on all sampled records}
+  - {name: permalink, type: uri}
+  - {name: list_item_html, type: string, role: presentation}
+  - {name: map_item_html, type: string, role: presentation}
+  - {name: map_details_html, type: string, role: presentation}
+  embedded_attributes:
+    source: post.post_content (a JSON string, not structured JSON fields)
+    fields: [address, address2, city, state, zip, country, phone, business_name, rhinaer,
+      vivaer, inoffice, excellence]
+    note: >-
+      The product flags (`rhinaer`, `vivaer`, `inoffice`, `excellence`) are string "0"/"1"
+      values inside a serialized JSON string, so a consumer must parse a string to filter on
+      them client-side. Internal CRM fields are also present in this blob — see
+      security/aerin-medical-domain-security.yml, exposures[].
+- name: Product
+  description: The Aerin procedure a location offers. A WordPress taxonomy term used as the
+    `product` filter on the locator.
+  identifier: term ID
+  terms:
+  - {id: '697', label: RhinAer, locations: 783}
+  - {id: '698', label: VivAer, locations: 920}
+  source_operation: openapi/aerin-medical-site-openapi.yml#getLocatorWidget
+- name: Designation
+  description: Aerin Center of Excellence tiering for a location. Used as the `designation`
+    filter on the locator.
+  post_type_or_taxonomy: em_designation
+  identifier: term ID (plus the `center-of-excellence` roll-up value)
+  terms:
+  - {id: center-of-excellence, label: Any Center of Excellence, locations: 60}
+  - {id: '699', label: Premier VivAer, locations: 17}
+  - {id: '700', label: Advanced RhinAer, locations: 22}
+  - {id: '701', label: Advanced VivAer, locations: 30}
+  - {id: '702', label: Premier RhinAer, locations: 5}
+  source_operation: openapi/aerin-medical-site-openapi.yml#getLocatorWidget
+- name: Physician
+  description: Declared custom post type. Appears in the wp/v2/search `subtype` enumeration
+    and physician names are rendered inside Location `list_item_html`, but no readable
+    collection is exposed.
+  post_type: physician
+  observability: 401 — no anonymous collection
+- name: Alert
+  description: Declared custom post type for site alerts. No readable collection.
+  post_type: alert
+  observability: 401 — no anonymous collection
+- name: Content
+  description: Posts and pages. Reachable only as search hits (id, title, url, type,
+    subtype); the underlying collections are 401-gated.
+  post_types: [post, page]
+  count_observed: 2242
+  source_operation: openapi/aerin-medical-site-openapi.yml#searchSite
+relationships:
+- {from: Location, to: Product, type: has_many, via: product term (embedded rhinaer/vivaer
+    flags in post.post_content)}
+- {from: Location, to: Designation, type: has_one, via: designation term (em_designation)}
+- {from: Location, to: Physician, type: has_many, via: rendered in list_item_html; no
+    structured link exposed}
+- {from: Location, to: Location, type: belongs_to, via: post.post_parent, note: every sampled
+    record carries a non-zero parent post ID whose record is not exposed}
+- {from: Content, to: Content, type: references, via: search _links.self, note: the linked
+    wp/v2 resource returns 401}
+gaps:
+- Product membership is only retrievable per-location by parsing a JSON string, or per-query
+  by filtering with an undocumented term ID.
+- No structured physician entity, despite physician names being rendered into HTML.
+- No `updated`/`etag` on the collection, so a consumer has no cheap way to detect change.

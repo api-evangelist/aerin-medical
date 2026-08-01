@@ -1,0 +1,98 @@
+generated: '2026-07-31'
+method: searched
+source: https://aerinmedical.com/compliance/ + https://aerinmedical.com/cybersecurity/ +
+  derived from openapi/aerin-medical-site-openapi.yml
+summary: >-
+  Aerin Medical is a regulated medical-device manufacturer, and its published compliance
+  posture is corporate/device compliance — not information-security certification and not
+  API standards conformance. The site API conforms to no cross-cutting API standard beyond
+  WordPress REST conventions.
+corporate_compliance:
+  program_url: https://aerinmedical.com/compliance/
+  published: true
+  documents:
+  - name: California Compliance Disclosure
+    url: https://aerinmedical.com/aerin-california-compliance-disclosure/
+    description: Statutory compliance-program declaration required of device and
+      pharmaceutical manufacturers doing business in California.
+  - name: Code of Business Conduct and Ethics
+    url: https://aerinmedical.com/aerin-medical-code-of-business-conduct-and-ethics/
+  - name: AdvaMed Code of Ethics
+    url: https://www.advamed.org/compliance-ethics/
+    description: Industry association code the company states it adheres to.
+  - name: Coordinated Vulnerability Disclosure Policy
+    url: https://aerinmedical.com/cybersecurity/
+  reporting_hotline: https://www.lighthouse-services.com/aerinmedical
+regulatory:
+  domain: medical devices (ENT / otorhinolaryngology)
+  fda_cleared_products:
+  - {name: VivAer Stylus, indication: nasal airway obstruction, pathway: 510(k) clearance}
+  - {name: RhinAer Stylus, indication: chronic rhinitis, pathway: 510(k) clearance}
+  instructions_for_use: https://aerinmedical.com/ifu/
+  instructions_for_use_eu: https://aerinmedical.com/ifu-eu/
+  note: >-
+    FDA clearance is stated in the company's own press releases and IFU library. No CE/MDR,
+    ISO 13485 or ISO 14971 certificate is published on the public site; absence here is
+    absence of publication, not evidence of absence of certification.
+information_security_certifications:
+  soc2: {published: false}
+  iso27001: {published: false}
+  hipaa: {published: false, note: No HIPAA statement; the company sells devices to
+      practices rather than operating a patient data platform. The site's NOSE-score
+      self-assessment form endpoints do collect symptom answers from the public.}
+  pci_dss: {published: false}
+  fedramp: {published: false}
+  gdpr: {published: false, note: A privacy policy exists at
+      https://aerinmedical.com/privacy-policy/ but no GDPR/DPA compliance statement was found.}
+  trust_center: {published: false}
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme; no OAuth surface on any host.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the WordPress `{code,message,data.status}` envelope, not
+    application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 despite a real disclosure policy existing
+    at https://aerinmedical.com/cybersecurity/.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation headers observed.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: No /.well-known/ document served on any host.
+- id: openapi
+  conforms: false
+  evidence: No OpenAPI published by the provider. The spec in openapi/ was derived by API
+    Evangelist from the live route index.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface exists.
+- id: a2a-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json both 404 on
+    aerinmedical.com, vivaer.com and rhinaer.com.
+- id: mcp
+  conforms: false
+  evidence: No MCP server published or discoverable.
+- id: cors
+  conforms: true
+  evidence: 'Access-Control-Allow-Origin: * with X-WP-Total / X-WP-TotalPages / Link exposed.'
+- id: oembed
+  conforms: true
+  evidence: oembed/1.0 namespace registered and /oembed/1.0/embed returns 200 anonymously.
+- id: wordpress-rest-api
+  conforms: true
+  evidence: 321 routes across 15 namespaces served at https://aerinmedical.com/wp-json with a
+    standard route-discovery document.
+- id: fhir-r4
+  conforms: false
+- id: scim
+  conforms: false
+- id: json-api
+  conforms: false
