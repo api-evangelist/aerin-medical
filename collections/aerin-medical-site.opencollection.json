@@ -1,0 +1,339 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aerin Medical Site API (WordPress REST)",
+    "version": "em-locator/v1 + aerin + wp/v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the WordPress REST route index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/"
+          },
+          "docs": "Returns the site's discovery document — name, home URL, the 15 registered namespaces, all 321 routes with their methods and declared arguments, and the supported authentication method (WordPress application passwords)."
+        },
+        {
+          "info": {
+            "name": "Get the aerin namespace index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/aerin",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the route index scoped to Aerin Medical's own `aerin` namespace — the site's seven form-handling POST routes."
+        },
+        {
+          "info": {
+            "name": "Get the em-locator namespace index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/em-locator/v1"
+          },
+          "docs": "Get the em-locator namespace index"
+        },
+        {
+          "info": {
+            "name": "Get the rendered site footer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/custom-footer/v1/get-custom-footer-html"
+          },
+          "docs": "Returns the site's shared footer markup. Used by the theme; exposed anonymously."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ENT locations trained on Aerin procedures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/em-locator/v1/locations",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of the collection. Observed 102 pages at 10 per page."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Records per page."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Free-text filter over practice name / city / state. Observed to narrow `X-WP-Total` (e.g. `search=Austin` → 44)."
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude of the search origin. Supply together with `lng` to sort by proximity and populate `distance`."
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "Longitude of the search origin. Supply together with `lat`."
+              },
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Filter to locations offering one product, by term ID. Observed values — `697` RhinAer (783 locations), `698` VivAer (920 locations)."
+              },
+              {
+                "name": "designation",
+                "value": "",
+                "type": "query",
+                "description": "Filter to Aerin Center of Excellence designations, by term ID or the `center-of-excellence` roll-up. Observed counts — any Center of Excellence 60, `699` Premier VivAer 17, `700` Advanced RhinAer 22, `701` Advanced VivAer 30, `702` Premier RhinAer 5."
+              }
+            ]
+          },
+          "docs": "Returns the treating locations behind https://aerinmedical.com/find-ent-doctor/ — 1,012 records as observed on 2026-07-31. Each record carries the practice name, formatted address, phone, latitude/longitude, the public location permalink, and pre-rendered HTML fragments used by the site's map and result list.\n\nPagination is standard WordPress: 10 records per page by default, with the total count in the `X-WP-Total` response header and the page count in `X-WP-TotalPages`. Supplying `lat` and `lng"
+        },
+        {
+          "info": {
+            "name": "Get the rendered doctor-finder widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/em-locator/v1/locator"
+          },
+          "docs": "Returns the server-rendered HTML for the doctor-finder search widget, including the product and designation filter `<select>` elements whose option values are the term IDs accepted by `listTreatingLocations`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search across aerinmedical.com content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/wp/v2/search",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to items of an object type."
+              },
+              {
+                "name": "subtype",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to items of one or more object subtypes. Note the Aerin-specific custom post types: `location`, `physician`, `alert`, and the `em_designation` taxonomy."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific IDs."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific IDs."
+              }
+            ]
+          },
+          "docs": "Cross-content-type search. 2,242 items were indexed as observed on 2026-07-31. This is the ONLY `wp/v2` collection reachable anonymously — `posts`, `pages`, `media`, `categories`, `tags`, `users`, `comments`, `types`, `taxonomies` and `statuses` all return 401 `itsec_rest_api_access_restricted`, and the `_links.self` hrefs in each result therefore also 401. Results carry `id`, `title`, `url`, `type` and `subtype` only.\n\nAll parameters below are declared verbatim in the site's own route index."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Embed",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an oEmbed representation of an aerinmedical.com URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aerinmedical.com/wp-json/oembed/1.0/embed",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "The URL of the resource for which to fetch oEmbed data."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxwidth",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get an oEmbed representation of an aerinmedical.com URL"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Forms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a doctor-finder query from the site form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/locations"
+          },
+          "docs": "Registered POST route backing the doctor-finder page. NOT INVOKED during derivation — the route index declares no arguments and the endpoint has side effects, so no request body is documented. Use `listTreatingLocations` for read access."
+        },
+        {
+          "info": {
+            "name": "Server-side proxy used by the locator's Google Maps integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/google"
+          },
+          "docs": "Registered POST route in the `aerin` namespace. NOT INVOKED during derivation; no argument schema is declared or documented."
+        },
+        {
+          "info": {
+            "name": "Submit the site contact form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/contact"
+          },
+          "docs": "Registered POST route backing https://aerinmedical.com/contact-us/. Side-effecting (creates a contact record); NOT INVOKED during derivation and no request body is documented."
+        },
+        {
+          "info": {
+            "name": "Submit a newsletter sign-up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/newsletter"
+          },
+          "docs": "Registered POST route backing the site's e-mail sign-up. Side-effecting; NOT INVOKED during derivation and no request body is documented."
+        },
+        {
+          "info": {
+            "name": "Submit a request to be contacted for an evaluation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/request-evaluation"
+          },
+          "docs": "Registered POST route backing the site's patient evaluation request flow. Side-effecting (creates a patient lead); NOT INVOKED during derivation and no request body is documented."
+        },
+        {
+          "info": {
+            "name": "Submit a NOSE (Nasal Obstruction Symptom Evaluation) assessment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/nose-score"
+          },
+          "docs": "Registered POST route backing the site's nasal-obstruction self-assessment. Side-effecting and potentially collects health-related answers; NOT INVOKED during derivation and no request body is documented."
+        },
+        {
+          "info": {
+            "name": "Submit a chronic-rhinitis symptom self-assessment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://aerinmedical.com/wp-json/aerin/rhinitis-nose-score"
+          },
+          "docs": "Registered POST route backing the site's chronic-rhinitis self-assessment. Side-effecting and potentially collects health-related answers; NOT INVOKED during derivation and no request body is documented."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

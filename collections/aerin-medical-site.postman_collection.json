@@ -1,0 +1,1286 @@
+{
+  "item": [
+    {
+      "id": "b65a6166-908e-41fe-b698-14b01c24a7bd",
+      "name": "Discovery",
+      "description": {
+        "content": "Route index / discovery documents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60ba5584-9008-4f08-8134-073cfac2cdf0",
+          "name": "Get the WordPress REST route index",
+          "request": {
+            "name": "Get the WordPress REST route index",
+            "description": {
+              "content": "Returns the site's discovery document — name, home URL, the 15 registered namespaces, all 321 routes with their methods and declared arguments, and the supported authentication method (WordPress application passwords).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3c9a7b2-c859-46c7-b864-784b40c1b8a5",
+              "name": "The route index.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"http://OOPaXD.nhstljBnEoW-\",\n  \"home\": \"https://kvJGndxZdxInkWlh.cpoq1Oo7WR37reNHgGZ.2HEHZFr.nlGuQutaWSyKCySpn0SWM.dfNa9jMVRIqkV6\",\n  \"namespaces\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authentication\": {},\n  \"routes\": {},\n  \"_links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c6abf7a-57a8-4ade-a7d5-74c5e3f0c7c7",
+          "name": "Get the aerin namespace index",
+          "request": {
+            "name": "Get the aerin namespace index",
+            "description": {
+              "content": "Returns the route index scoped to Aerin Medical's own `aerin` namespace — the site's seven form-handling POST routes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "namespace",
+                  "value": "aerin"
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "44c51872-d106-49b9-b33b-279c944635a4",
+              "name": "The namespace index.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "namespace",
+                      "value": "aerin"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"http://OOPaXD.nhstljBnEoW-\",\n  \"home\": \"https://kvJGndxZdxInkWlh.cpoq1Oo7WR37reNHgGZ.2HEHZFr.nlGuQutaWSyKCySpn0SWM.dfNa9jMVRIqkV6\",\n  \"namespaces\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authentication\": {},\n  \"routes\": {},\n  \"_links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bc25548-a5aa-4446-8d4e-50652dcf50ae",
+          "name": "Get the em-locator namespace index",
+          "request": {
+            "name": "Get the em-locator namespace index",
+            "description": {},
+            "url": {
+              "path": [
+                "em-locator",
+                "v1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdd45834-8b8b-42a6-b416-eb9fc17c17d2",
+              "name": "The namespace index.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "em-locator",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"http://OOPaXD.nhstljBnEoW-\",\n  \"home\": \"https://kvJGndxZdxInkWlh.cpoq1Oo7WR37reNHgGZ.2HEHZFr.nlGuQutaWSyKCySpn0SWM.dfNa9jMVRIqkV6\",\n  \"namespaces\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authentication\": {},\n  \"routes\": {},\n  \"_links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "acf69879-16ec-487e-96bd-7b672244aaa0",
+          "name": "Get the rendered site footer",
+          "request": {
+            "name": "Get the rendered site footer",
+            "description": {
+              "content": "Returns the site's shared footer markup. Used by the theme; exposed anonymously.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "custom-footer",
+                "v1",
+                "get-custom-footer-html"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08db9e05-854a-4712-b10a-15420856af95",
+              "name": "The rendered footer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom-footer",
+                    "v1",
+                    "get-custom-footer-html"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4f98d79f-5505-48e1-b79c-367bfdd20cf5",
+      "name": "Locator",
+      "description": {
+        "content": "The Aerin doctor finder — treating ENT locations, filterable by product, designation, text and geography.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a30d1489-5925-4065-a7d8-6c5d3d6622bf",
+          "name": "List ENT locations trained on Aerin procedures",
+          "request": {
+            "name": "List ENT locations trained on Aerin procedures",
+            "description": {
+              "content": "Returns the treating locations behind https://aerinmedical.com/find-ent-doctor/ — 1,012 records as observed on 2026-07-31. Each record carries the practice name, formatted address, phone, latitude/longitude, the public location permalink, and pre-rendered HTML fragments used by the site's map and result list.\n\nPagination is standard WordPress: 10 records per page by default, with the total count in the `X-WP-Total` response header and the page count in `X-WP-TotalPages`. Supplying `lat` and `lng` switches the collection into proximity mode — results are ordered by distance and each record's `distance` field becomes a number (miles) instead of `false`.\n\nThe route index declares no arguments for this route; every parameter below was confirmed by observed behaviour (differing `X-WP-Total` / ordering / `distance` values) against the live endpoint. `product` and `designation` take the WordPress term IDs exposed by the locator form at `GET /em-locator/v1/locator`.\n\nCORS is open (`Access-Control-Allow-Origin: *`) and responses are cached (`Cache-Control: max-age=600, must-revalidate`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "em-locator",
+                "v1",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page of the collection. Observed 102 pages at 10 per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Free-text filter over practice name / city / state. Observed to narrow `X-WP-Total` (e.g. `search=Austin` → 44)."
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<double>",
+                  "description": "Latitude of the search origin. Supply together with `lng` to sort by proximity and populate `distance`."
+                },
+                {
+                  "disabled": false,
+                  "key": "lng",
+                  "value": "<double>",
+                  "description": "Longitude of the search origin. Supply together with `lat`."
+                },
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<string>",
+                  "description": "Filter to locations offering one product, by term ID. Observed values — `697` RhinAer (783 locations), `698` VivAer (920 locations)."
+                },
+                {
+                  "disabled": false,
+                  "key": "designation",
+                  "value": "<string>",
+                  "description": "Filter to Aerin Center of Excellence designations, by term ID or the `center-of-excellence` roll-up. Observed counts — any Center of Excellence 60, `699` Premier VivAer 17, `700` Advanced RhinAer 22, `701` Advanced VivAer 30, `702` Premier RhinAer 5."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ecc4df8-b5a0-4dc4-89e1-19f61fbc783e",
+              "name": "A page of treating locations. `X-WP-Total` carries the full match count; an out-of-range page returns an empty array with `X-WP-Total: 0`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "em-locator",
+                    "v1",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "product",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "designation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total records matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "3443"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available.",
+                  "key": "X-WP-TotalPages",
+                  "value": "3443"
+                },
+                {
+                  "disabled": false,
+                  "description": "Observed as `*`.",
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ID\": 38,\n    \"address\": \"string\",\n    \"formatted_address\": \"string\",\n    \"lat\": \"string\",\n    \"lng\": \"string\",\n    \"distance\": false,\n    \"phone\": \"string\",\n    \"email\": \"string\",\n    \"website\": \"string\",\n    \"permalink\": \"https://B.rqv1qs3Ct-H9mZiKm8MalSsxLnpVoa.pjeWOib\",\n    \"list_item_html\": \"string\",\n    \"map_item_html\": \"string\",\n    \"map_details_html\": \"string\",\n    \"plugin_settings\": {},\n    \"post\": {\n      \"ID\": 69,\n      \"post_title\": \"string\",\n      \"post_name\": \"string\",\n      \"post_type\": \"string\",\n      \"post_status\": \"string\",\n      \"post_date\": \"string\",\n      \"post_modified\": \"string\",\n      \"post_parent\": 5289,\n      \"post_content\": \"string\"\n    }\n  },\n  {\n    \"ID\": 2027,\n    \"address\": \"string\",\n    \"formatted_address\": \"string\",\n    \"lat\": \"string\",\n    \"lng\": \"string\",\n    \"distance\": true,\n    \"phone\": \"string\",\n    \"email\": \"string\",\n    \"website\": \"string\",\n    \"permalink\": \"https://boMoRCxDPnesXh.givvTIZqMY0o+SeO6J7IsModOhnV9NdTBGFe\",\n    \"list_item_html\": \"string\",\n    \"map_item_html\": \"string\",\n    \"map_details_html\": \"string\",\n    \"plugin_settings\": {},\n    \"post\": {\n      \"ID\": 2154,\n      \"post_title\": \"string\",\n      \"post_name\": \"string\",\n      \"post_type\": \"string\",\n      \"post_status\": \"string\",\n      \"post_date\": \"string\",\n      \"post_modified\": \"string\",\n      \"post_parent\": 3631,\n      \"post_content\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b597a751-74b5-4f07-8759-63f2726e6380",
+          "name": "Get the rendered doctor-finder widget",
+          "request": {
+            "name": "Get the rendered doctor-finder widget",
+            "description": {
+              "content": "Returns the server-rendered HTML for the doctor-finder search widget, including the product and designation filter `<select>` elements whose option values are the term IDs accepted by `listTreatingLocations`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "em-locator",
+                "v1",
+                "locator"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5543f42-b59a-4f73-b795-1f26bc31d592",
+              "name": "The rendered widget.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "em-locator",
+                    "v1",
+                    "locator"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"html\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7d6891e5-1a5e-4a76-adb7-04af65bd523a",
+      "name": "Search",
+      "description": {
+        "content": "Cross-content-type site search.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "306b558a-b92f-44a0-8305-7c52d6b862f2",
+          "name": "Search across aerinmedical.com content",
+          "request": {
+            "name": "Search across aerinmedical.com content",
+            "description": {
+              "content": "Cross-content-type search. 2,242 items were indexed as observed on 2026-07-31. This is the ONLY `wp/v2` collection reachable anonymously — `posts`, `pages`, `media`, `categories`, `tags`, `users`, `comments`, `types`, `taxonomies` and `statuses` all return 401 `itsec_rest_api_access_restricted`, and the `_links.self` hrefs in each result therefore also 401. Results carry `id`, `title`, `url`, `type` and `subtype` only.\n\nAll parameters below are declared verbatim in the site's own route index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "post",
+                  "description": "Limit results to items of an object type."
+                },
+                {
+                  "disabled": false,
+                  "key": "subtype",
+                  "value": "any",
+                  "description": "Limit results to items of one or more object subtypes. Note the Aerin-specific custom post types: `location`, `physician`, `alert`, and the `em_designation` taxonomy."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08fe2993-dc60-49f3-8781-57a96eb14423",
+              "name": "A page of search results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "post"
+                    },
+                    {
+                      "key": "subtype",
+                      "value": "any"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total items matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "3443"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available.",
+                  "key": "X-WP-TotalPages",
+                  "value": "3443"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 9979,\n    \"title\": \"string\",\n    \"url\": \"http://aNtMJpl.fpImPtIC,Ilk0KuUqVSiv7CDKmZm8arYeKg-.AH3JQhqrTpB1yBYCPoWG\",\n    \"type\": \"string\",\n    \"subtype\": \"string\",\n    \"_links\": {}\n  },\n  {\n    \"id\": 6078,\n    \"title\": \"string\",\n    \"url\": \"https://tiqC.kmvdJXLnq1fjvCQK.ZLzlQc-iTZsQ8uKlXfJszXuu2GThP,5w\",\n    \"type\": \"string\",\n    \"subtype\": \"string\",\n    \"_links\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "eadd68d4-a430-42fb-a841-d1ae7ec7348f",
+      "name": "Forms",
+      "description": {
+        "content": "Site form-submission endpoints (lead capture, NOSE score assessments). Side-effecting; not invoked during derivation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e6158d45-bb5f-4bde-9457-94fb10351497",
+          "name": "Submit a doctor-finder query from the site form",
+          "request": {
+            "name": "Submit a doctor-finder query from the site form",
+            "description": {
+              "content": "Registered POST route backing the doctor-finder page. NOT INVOKED during derivation — the route index declares no arguments and the endpoint has side effects, so no request body is documented. Use `listTreatingLocations` for read access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3056f108-31aa-4ffb-9375-771a2f1d5bc8",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be2819c6-ed32-410e-867a-5d0c8c3eb0fc",
+          "name": "Server-side proxy used by the locator's Google Maps integration",
+          "request": {
+            "name": "Server-side proxy used by the locator's Google Maps integration",
+            "description": {
+              "content": "Registered POST route in the `aerin` namespace. NOT INVOKED during derivation; no argument schema is declared or documented.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "google"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2b930cf-1fba-4099-bfd7-9a16ce3827de",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eeaf7759-1607-4726-8dfd-294651d5cb68",
+          "name": "Submit the site contact form",
+          "request": {
+            "name": "Submit the site contact form",
+            "description": {
+              "content": "Registered POST route backing https://aerinmedical.com/contact-us/. Side-effecting (creates a contact record); NOT INVOKED during derivation and no request body is documented.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "contact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8408e5c7-8b35-46e3-b59f-9ed90c0159ad",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "contact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3df605a9-1041-4b1d-9340-db234ab26deb",
+          "name": "Submit a newsletter sign-up",
+          "request": {
+            "name": "Submit a newsletter sign-up",
+            "description": {
+              "content": "Registered POST route backing the site's e-mail sign-up. Side-effecting; NOT INVOKED during derivation and no request body is documented.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "newsletter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be0aa5e2-8f4f-4725-8d9a-54f2d1c739b9",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "newsletter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85558677-cce0-40b8-87ba-cc8db06de19f",
+          "name": "Submit a request to be contacted for an evaluation",
+          "request": {
+            "name": "Submit a request to be contacted for an evaluation",
+            "description": {
+              "content": "Registered POST route backing the site's patient evaluation request flow. Side-effecting (creates a patient lead); NOT INVOKED during derivation and no request body is documented.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "request-evaluation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7b74276-c7ae-4a03-ba83-3aceea31b93e",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "request-evaluation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76a092b7-8c78-47f6-a1ee-630dc5783fe7",
+          "name": "Submit a NOSE (Nasal Obstruction Symptom Evaluation) assessment",
+          "request": {
+            "name": "Submit a NOSE (Nasal Obstruction Symptom Evaluation) assessment",
+            "description": {
+              "content": "Registered POST route backing the site's nasal-obstruction self-assessment. Side-effecting and potentially collects health-related answers; NOT INVOKED during derivation and no request body is documented.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "nose-score"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "561286fb-a1e2-4f53-afcb-3f194606e12f",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "nose-score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8febd6b-57f3-4f7d-8bdd-0179ef152a71",
+          "name": "Submit a chronic-rhinitis symptom self-assessment",
+          "request": {
+            "name": "Submit a chronic-rhinitis symptom self-assessment",
+            "description": {
+              "content": "Registered POST route backing the site's chronic-rhinitis self-assessment. Side-effecting and potentially collects health-related answers; NOT INVOKED during derivation and no request body is documented.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aerin",
+                "rhinitis-nose-score"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fdf03e3-6d77-4967-b68f-88c1064140ed",
+              "name": "Not observed — endpoint was not invoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aerin",
+                    "rhinitis-nose-score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d161f98d-ad2f-46ca-8c38-6ab2ef712d18",
+      "name": "Embed",
+      "description": {
+        "content": "oEmbed representations of aerinmedical.com URLs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a230602-a087-4b5a-bb4c-8c63dd9ae120",
+          "name": "Get an oEmbed representation of an aerinmedical.com URL",
+          "request": {
+            "name": "Get an oEmbed representation of an aerinmedical.com URL",
+            "description": {},
+            "url": {
+              "path": [
+                "oembed",
+                "1.0",
+                "embed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>",
+                  "description": "(Required) The URL of the resource for which to fetch oEmbed data."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxwidth",
+                  "value": "600"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a388a69a-2cbb-4db4-87ec-12cdadeea8c7",
+              "name": "The oEmbed response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oembed",
+                    "1.0",
+                    "embed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "maxwidth",
+                      "value": "600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://aerinmedical.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "aed4cb6d-d7d2-4653-9de5-0e114136ec4b",
+    "name": "Aerin Medical Site API (WordPress REST)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Aerin Medical is a medical-device company and operates no developer API product: it publishes no developer portal, no API documentation, no keys, no SDKs and no terms of use for programmatic access.\n\nIts corporate site, aerinmedical.com, does however serve a WordPress REST API at `https://aerinmedical.com/wp-json` with 321 registered routes across 15 namespaces. Most of the standard `wp/v2` content routes (posts, pages, media, users, taxonomies, types) are BLOCKED to anonymous callers by the iThemes Security plugin and return HTTP 401 `itsec_rest_api_access_restricted` — so, unlike most WordPress sites, the content library here is not machine-readable. What IS anonymously readable is the company's own first-party doctor-finder plugin (`em-locator/v1`, the surface behind https://aerinmedical.com/find-ent-doctor/), the cross-content `wp/v2/search` index, the route discovery documents, and a small set of `aerin`-namespace POST endpoints that back the site's lead-capture and NOSE-score assessment forms.\n\nThis document was DERIVED by API Evangelist from the provider's own live route index (`GET https://aerinmedical.com/wp-json/`) plus direct anonymous probing of each route, on 2026-07-31. Every path, method, parameter name, enumeration and response field is taken from that index or from an observed HTTP 200 response; nothing was invented. Routes observed to return 401 anonymously are deliberately omitted. The `aerin` namespace POST routes are listed because they are really registered and really public, but they declare NO argument schema in the route index and they have side effects (they submit leads / contact requests / newsletter sign-ups into the company's systems), so they were NOT invoked and no request body is documented for them.\n\nTreat this as an incidental site surface, not a supported product API. Aerin Medical offers no availability, versioning or support commitment for it.\n\nContact Support:\n Name: Aerin Medical, Inc.\n Email: customerservice@aerinmedical.com",
+      "type": "text/plain"
+    }
+  }
+}
