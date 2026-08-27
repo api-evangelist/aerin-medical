@@ -38,30 +38,16 @@ tags:
 - Physician Locator
 - Private Company
 apis:
-- name: Aerin Medical Site API (WordPress REST)
-  description: 'Anonymously readable REST surface served by aerinmedical.com at /wp-json — 321
-    routes across 15 namespaces. The substantive part is Aerin Medical''s own doctor-finder
-    plugin (em-locator/v1): 1,012 ENT practice locations trained on VivAer or RhinAer, each
-    with name, formatted address, phone, latitude/longitude and a public permalink, filterable
-    by free text, by lat/lng proximity, by product (RhinAer 783 locations, VivAer 920) and by
-    Center of Excellence designation (60 locations). Site search (wp/v2/search, 2,242 items),
-    oEmbed and the route-discovery documents also answer anonymously, while every standard
-    wp/v2 content collection returns 401. This is an incidental site surface, not an API
-    product: Aerin Medical publishes no documentation, keys, SDKs, support channel, rate-limit
-    policy, status page or terms of use for it.'
+- aid: aerin-medical:aerin-medical-discovery-api
+  name: Aerin Medical Discovery API
+  description: Route index / discovery documents.
   humanURL: https://aerinmedical.com/find-ent-doctor/
   baseURL: https://aerinmedical.com/wp-json
   tags:
-  - Physician Locator
-  - Geospatial Search
-  - Content
-  - WordPress
-  - CMS
+  - Discovery
   properties:
   - type: OpenAPI
-    url: openapi/aerin-medical-site-openapi.yml
-  - type: Overlay
-    url: overlays/aerin-medical-site-overlay.yaml
+    url: openapi/aerin-medical-discovery-api-openapi.yml
   - type: Authentication
     url: authentication/aerin-medical-authentication.yml
   - type: Conventions
@@ -74,14 +60,105 @@ apis:
     url: lifecycle/aerin-medical-lifecycle.yml
   - type: Conformance
     url: conformance/aerin-medical-conformance.yml
-  - type: AgentSkill
-    url: skills/_index.yml
+- aid: aerin-medical:aerin-medical-embed-api
+  name: Aerin Medical Embed API
+  description: oEmbed representations of aerinmedical.com URLs.
+  humanURL: https://aerinmedical.com/find-ent-doctor/
+  baseURL: https://aerinmedical.com/wp-json
+  tags:
+  - Embed
+  properties:
+  - type: OpenAPI
+    url: openapi/aerin-medical-embed-api-openapi.yml
+  - type: Authentication
+    url: authentication/aerin-medical-authentication.yml
+  - type: Conventions
+    url: conventions/aerin-medical-conventions.yml
+  - type: ErrorCatalog
+    url: errors/aerin-medical-problem-types.yml
+  - type: DataModel
+    url: data-model/aerin-medical-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/aerin-medical-lifecycle.yml
+  - type: Conformance
+    url: conformance/aerin-medical-conformance.yml
+- aid: aerin-medical:aerin-medical-forms-api
+  name: Aerin Medical Forms API
+  description: >-
+    Site form-submission endpoints (lead capture, NOSE score assessments). Side-effecting; not invoked
+    during derivation.
+  humanURL: https://aerinmedical.com/find-ent-doctor/
+  baseURL: https://aerinmedical.com/wp-json
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/aerin-medical-forms-api-openapi.yml
+  - type: Authentication
+    url: authentication/aerin-medical-authentication.yml
+  - type: Conventions
+    url: conventions/aerin-medical-conventions.yml
+  - type: ErrorCatalog
+    url: errors/aerin-medical-problem-types.yml
+  - type: DataModel
+    url: data-model/aerin-medical-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/aerin-medical-lifecycle.yml
+  - type: Conformance
+    url: conformance/aerin-medical-conformance.yml
+- aid: aerin-medical:aerin-medical-locator-api
+  name: Aerin Medical Locator API
+  description: >-
+    The Aerin doctor finder — treating ENT locations, filterable by product, designation, text and geography.
+  humanURL: https://aerinmedical.com/find-ent-doctor/
+  baseURL: https://aerinmedical.com/wp-json
+  tags:
+  - Locator
+  properties:
+  - type: OpenAPI
+    url: openapi/aerin-medical-locator-api-openapi.yml
+  - type: Authentication
+    url: authentication/aerin-medical-authentication.yml
+  - type: Conventions
+    url: conventions/aerin-medical-conventions.yml
+  - type: ErrorCatalog
+    url: errors/aerin-medical-problem-types.yml
+  - type: DataModel
+    url: data-model/aerin-medical-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/aerin-medical-lifecycle.yml
+  - type: Conformance
+    url: conformance/aerin-medical-conformance.yml
+- aid: aerin-medical:aerin-medical-search-api
+  name: Aerin Medical Search API
+  description: Cross-content-type site search.
+  humanURL: https://aerinmedical.com/find-ent-doctor/
+  baseURL: https://aerinmedical.com/wp-json
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/aerin-medical-search-api-openapi.yml
+  - type: Authentication
+    url: authentication/aerin-medical-authentication.yml
+  - type: Conventions
+    url: conventions/aerin-medical-conventions.yml
+  - type: ErrorCatalog
+    url: errors/aerin-medical-problem-types.yml
+  - type: DataModel
+    url: data-model/aerin-medical-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/aerin-medical-lifecycle.yml
+  - type: Conformance
+    url: conformance/aerin-medical-conformance.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/aerin-medical-site-overlay.yaml
 - type: Website
   url: https://aerinmedical.com/
 - type: About
