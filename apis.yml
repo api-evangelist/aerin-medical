@@ -28,12 +28,14 @@ deliveryModel:
   method: derived
 image: https://aerinmedical.com/wp-content/uploads/2020/02/Aerin_Logo-01.png
 url: https://raw.githubusercontent.com/api-evangelist/aerin-medical/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "Aerin Medical operates no developer API programme — no portal, no documentation, no keys, no SDKs, no MCP server, no agent card and no status page."
 x-type: company
 x-source: harvest:secondary-market
 x-tier: profiled
 x-tier-reason: enrichment-pipeline-2026-07-31
 x-sector: medical-devices
-x-api-posture: no-product-api
 specificationVersion: '0.23'
 created: '2026-07-31'
 modified: '2026-07-31'
