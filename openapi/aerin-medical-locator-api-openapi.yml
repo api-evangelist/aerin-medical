@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  title: Aerin Medical Site API (WordPress REST) Locator API
+  version: em-locator/v1 + aerin + wp/v2
+  summary: Anonymously callable REST surface served by aerinmedical.com — the ENT doctor locator (1,012 treating locations), site search, and the site's form-submission endpoints.
+  description: 'Aerin Medical is a medical-device company and operates no developer API product: it publishes no developer portal, no API documentation, no keys, no SDKs and no terms of use for programmatic access.
+
+
+    Its corporate site, aerinmedical.com, does however serve a WordPress REST API at `https://aerinmedical.com/wp-json` with 321 registered routes across 15 namespaces. Most of the standard `wp/v2` content routes (posts, pages, media, users, taxonomies, types) are BLOCKED to anonymous callers by the iThemes Security plugin and return HTTP 401 `itsec_rest_api_access_restricted` — so, unlike most WordPress sites, the content library here is not machine-readable. What IS anonymously readable is the company''s own first-party doctor-finder plugin (`em-locator/v1`, the surface behind https://aerinmedical.com/find-ent-doctor/), the cross-content `wp/v2/search` index, the route discovery documents, and a small set of `aerin`-namespace POST endpoints that back the site''s lead-capture and NOSE-score assessment forms.
+
+
+    This document was DERIVED by API Evangelist from the provider''s own live route index (`GET https://aerinmedical.com/wp-json/`) plus direct anonymous probing of each route, on 2026-07-31. Every path, method, parameter name, enumeration and response field is taken from that index or from an observed HTTP 200 response; nothing was invented. Routes observed to return 401 anonymously are deliberately omitted. The `aerin` namespace POST routes are listed because they are really registered and really public, but they declare NO argument schema in the route index and they have side effects (they submit leads / contact requests / newsletter sign-ups into the company''s systems), so they were NOT invoked and no request body is documented for them.
+
+
+    Treat this as an incidental site surface, not a supported product API. Aerin Medical offers no availability, versioning or support commitment for it.'
+  contact:
+    name: Aerin Medical, Inc.
+    url: https://aerinmedical.com/contact-us/
+    email: customerservice@aerinmedical.com
+  x-origin:
+  - url: https://aerinmedical.com/wp-json/
+    format: wordpress-rest-route-index
+    version: wp/v2
+  x-apievangelist-method: derived
+  x-apievangelist-derived-from: https://aerinmedical.com/wp-json/ (live route index + per-route anonymous probes, fetched 2026-07-31)
+  x-apievangelist-note: Incidental site API, not a product API. Derived by API Evangelist, not published by Aerin Medical.
+servers:
+- url: https://aerinmedical.com/wp-json
+  description: aerinmedical.com WordPress REST API
+tags:
+- name: Locator
+  description: The Aerin doctor finder — treating ENT locations, filterable by product, designation, text and geography.
+paths:
+  /em-locator/v1/locations:
+    get:
+      tags:
+      - Locator
+      operationId: listTreatingLocations
+      summary: List ENT locations trained on Aerin procedures
+      description: 'Returns the treating locations behind https://aerinmedical.com/find-ent-doctor/ — 1,012 records as observed on 2026-07-31. Each record carries the practice name, formatted address, phone, latitude/longitude, the public location permalink, and pre-rendered HTML fragments used by the site''s map and result list.
+
+
+        Pagination is standard WordPress: 10 records per page by default, with the total count in the `X-WP-Total` response header and the page count in `X-WP-TotalPages`. Supplying `lat` and `lng` switches the collection into proximity mode — results are ordered by distance and each record''s `distance` field becomes a number (miles) instead of `false`.
+
+
+        The route index declares no arguments for this route; every parameter below was confirmed by observed behaviour (differing `X-WP-Total` / ordering / `distance` values) against the live endpoint. `product` and `designation` take the WordPress term IDs exposed by the locator form at `GET /em-locator/v1/locator`.
+
+
+        CORS is open (`Access-Control-Allow-Origin: *`) and responses are cached (`Cache-Control: max-age=600, must-revalidate`).'
+      parameters:
+      - name: page
+        in: query
+        description: Page of the collection. Observed 102 pages at 10 per page.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: per_page
+        in: query
+        description: Records per page.
+        required: false
+        schema:
+          type: integer
+          default: 10
+      - name: search
+        in: query
+        description: Free-text filter over practice name / city / state. Observed to narrow `X-WP-Total` (e.g. `search=Austin` → 44).
+        required: false
+        schema:
+          type: string
+      - name: lat
+        in: query
+        description: Latitude of the search origin. Supply together with `lng` to sort by proximity and populate `distance`.
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: lng
+        in: query
+        description: Longitude of the search origin. Supply together with `lat`.
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: product
+        in: query
+        description: Filter to locations offering one product, by term ID. Observed values — `697` RhinAer (783 locations), `698` VivAer (920 locations).
+        required: false
+        schema:
+          type: string
+          enum:
+          - '697'
+          - '698'
+          x-enum-descriptions:
+            '697': RhinAer
+            '698': VivAer
+      - name: designation
+        in: query
+        description: Filter to Aerin Center of Excellence designations, by term ID or the `center-of-excellence` roll-up. Observed counts — any Center of Excellence 60, `699` Premier VivAer 17, `700` Advanced RhinAer 22, `701` Advanced VivAer 30, `702` Premier RhinAer 5.
+        required: false
+        schema:
+          type: string
+          enum:
+          - center-of-excellence
+          - '699'
+          - '700'
+          - '701'
+          - '702'
+          x-enum-descriptions:
+            center-of-excellence: Any Center of Excellence
+            '699': Premier VivAer
+            '700': Advanced RhinAer
+            '701': Advanced VivAer
+            '702': Premier RhinAer
+      responses:
+        '200':
+          description: 'A page of treating locations. `X-WP-Total` carries the full match count; an out-of-range page returns an empty array with `X-WP-Total: 0`.'
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available.
+              schema:
+                type: integer
+            Access-Control-Allow-Origin:
+              description: Observed as `*`.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+  /em-locator/v1/locator:
+    get:
+      tags:
+      - Locator
+      operationId: getLocatorWidget
+      summary: Get the rendered doctor-finder widget
+      description: Returns the server-rendered HTML for the doctor-finder search widget, including the product and designation filter `<select>` elements whose option values are the term IDs accepted by `listTreatingLocations`.
+      responses:
+        '200':
+          description: The rendered widget.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  html:
+                    type: string
+                    description: Server-rendered HTML for the locator search form and map shell.
+components:
+  schemas:
+    Location:
+      type: object
+      description: One ENT practice location trained on Aerin procedures.
+      properties:
+        ID:
+          type: integer
+          description: WordPress post ID of the location.
+        address:
+          type: string
+          description: Street address as entered.
+        formatted_address:
+          type: string
+          description: Geocoded, display-formatted address.
+        lat:
+          type: string
+          description: Latitude, as a string.
+        lng:
+          type: string
+          description: Longitude, as a string.
+        distance:
+          oneOf:
+          - type: boolean
+          - type: number
+          description: '`false` unless `lat`/`lng` were supplied, in which case the distance from the search origin in the units given by `plugin_settings.distance_unit`.'
+        phone:
+          type: string
+          description: Practice phone number, formatted for display.
+        email:
+          type: string
+          description: Contact e-mail. Observed empty on every sampled record.
+        website:
+          type: string
+          description: Practice website. Observed empty on every sampled record.
+        permalink:
+          type: string
+          format: uri
+          description: Public page for this location on aerinmedical.com.
+        list_item_html:
+          type: string
+          description: Pre-rendered `<li>` fragment for the result list, including the product badges (RhinAer / VivAer) shown on the site.
+        map_item_html:
+          type: string
+          description: Pre-rendered map marker fragment.
+        map_details_html:
+          type: string
+          description: Pre-rendered map info-window fragment.
+        plugin_settings:
+          type: object
+          description: 'Locator plugin configuration echoed on every record — map centre, zoom, distance unit, page size, labels. NOTE: as observed on 2026-07-31 this object also echoes the site''s Google Maps browser API key and empty basic-auth fields to every anonymous caller. Recorded as an observation only; the value is deliberately not reproduced in this repository. See security/aerin-medical-domain-security.yml.'
+        post:
+          type: object
+          description: 'The raw underlying WordPress post record. NOTE: as observed on 2026-07-31 its `post_content` is a JSON blob carrying internal CRM fields — Salesforce id, account number and the named sales representative for the account — alongside the public address and product flags. Recorded as an observation; values are deliberately not reproduced here.'
+          properties:
+            ID:
+              type: integer
+            post_title:
+              type: string
+            post_name:
+              type: string
+            post_type:
+              type: string
+              const: location
+            post_status:
+              type: string
+            post_date:
+              type: string
+            post_modified:
+              type: string
+            post_parent:
+              type: integer
+            post_content:
+              type: string
+              description: JSON string with address, city, state, zip, country and the `rhinaer` / `vivaer` / `inoffice` / `excellence` product flags — plus internal CRM fields (see note above).
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own route index at `authentication.application-passwords.endpoints.authorization` = https://aerinmedical.com/wp-admin/authorize-application.php. This is the built-in WordPress mechanism for authenticated (administrative) calls; Aerin Medical issues no public credentials, and every operation in this document is reachable ANONYMOUSLY with no credential at all.

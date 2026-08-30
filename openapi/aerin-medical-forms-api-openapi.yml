@@ -1,0 +1,116 @@
+openapi: 3.2.0
+info:
+  title: Aerin Medical Site API (WordPress REST) Forms API
+  version: em-locator/v1 + aerin + wp/v2
+  summary: Anonymously callable REST surface served by aerinmedical.com — the ENT doctor locator (1,012 treating locations), site search, and the site's form-submission endpoints.
+  description: 'Aerin Medical is a medical-device company and operates no developer API product: it publishes no developer portal, no API documentation, no keys, no SDKs and no terms of use for programmatic access.
+
+
+    Its corporate site, aerinmedical.com, does however serve a WordPress REST API at `https://aerinmedical.com/wp-json` with 321 registered routes across 15 namespaces. Most of the standard `wp/v2` content routes (posts, pages, media, users, taxonomies, types) are BLOCKED to anonymous callers by the iThemes Security plugin and return HTTP 401 `itsec_rest_api_access_restricted` — so, unlike most WordPress sites, the content library here is not machine-readable. What IS anonymously readable is the company''s own first-party doctor-finder plugin (`em-locator/v1`, the surface behind https://aerinmedical.com/find-ent-doctor/), the cross-content `wp/v2/search` index, the route discovery documents, and a small set of `aerin`-namespace POST endpoints that back the site''s lead-capture and NOSE-score assessment forms.
+
+
+    This document was DERIVED by API Evangelist from the provider''s own live route index (`GET https://aerinmedical.com/wp-json/`) plus direct anonymous probing of each route, on 2026-07-31. Every path, method, parameter name, enumeration and response field is taken from that index or from an observed HTTP 200 response; nothing was invented. Routes observed to return 401 anonymously are deliberately omitted. The `aerin` namespace POST routes are listed because they are really registered and really public, but they declare NO argument schema in the route index and they have side effects (they submit leads / contact requests / newsletter sign-ups into the company''s systems), so they were NOT invoked and no request body is documented for them.
+
+
+    Treat this as an incidental site surface, not a supported product API. Aerin Medical offers no availability, versioning or support commitment for it.'
+  contact:
+    name: Aerin Medical, Inc.
+    url: https://aerinmedical.com/contact-us/
+    email: customerservice@aerinmedical.com
+  x-origin:
+  - url: https://aerinmedical.com/wp-json/
+    format: wordpress-rest-route-index
+    version: wp/v2
+  x-apievangelist-method: derived
+  x-apievangelist-derived-from: https://aerinmedical.com/wp-json/ (live route index + per-route anonymous probes, fetched 2026-07-31)
+  x-apievangelist-note: Incidental site API, not a product API. Derived by API Evangelist, not published by Aerin Medical.
+servers:
+- url: https://aerinmedical.com/wp-json
+  description: aerinmedical.com WordPress REST API
+tags:
+- name: Forms
+  description: Site form-submission endpoints (lead capture, NOSE score assessments). Side-effecting; not invoked during derivation.
+paths:
+  /aerin/locations:
+    post:
+      tags:
+      - Forms
+      operationId: submitLocationsFormQuery
+      summary: Submit a doctor-finder query from the site form
+      description: Registered POST route backing the doctor-finder page. NOT INVOKED during derivation — the route index declares no arguments and the endpoint has side effects, so no request body is documented. Use `listTreatingLocations` for read access.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+  /aerin/google:
+    post:
+      tags:
+      - Forms
+      operationId: submitGoogleProxyRequest
+      summary: Server-side proxy used by the locator's Google Maps integration
+      description: Registered POST route in the `aerin` namespace. NOT INVOKED during derivation; no argument schema is declared or documented.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+  /aerin/contact:
+    post:
+      tags:
+      - Forms
+      operationId: submitContactForm
+      summary: Submit the site contact form
+      description: Registered POST route backing https://aerinmedical.com/contact-us/. Side-effecting (creates a contact record); NOT INVOKED during derivation and no request body is documented.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+  /aerin/newsletter:
+    post:
+      tags:
+      - Forms
+      operationId: submitNewsletterSignup
+      summary: Submit a newsletter sign-up
+      description: Registered POST route backing the site's e-mail sign-up. Side-effecting; NOT INVOKED during derivation and no request body is documented.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+  /aerin/request-evaluation:
+    post:
+      tags:
+      - Forms
+      operationId: submitEvaluationRequest
+      summary: Submit a request to be contacted for an evaluation
+      description: Registered POST route backing the site's patient evaluation request flow. Side-effecting (creates a patient lead); NOT INVOKED during derivation and no request body is documented.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+  /aerin/nose-score:
+    post:
+      tags:
+      - Forms
+      operationId: submitNoseScore
+      summary: Submit a NOSE (Nasal Obstruction Symptom Evaluation) assessment
+      description: Registered POST route backing the site's nasal-obstruction self-assessment. Side-effecting and potentially collects health-related answers; NOT INVOKED during derivation and no request body is documented.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+  /aerin/rhinitis-nose-score:
+    post:
+      tags:
+      - Forms
+      operationId: submitRhinitisNoseScore
+      summary: Submit a chronic-rhinitis symptom self-assessment
+      description: Registered POST route backing the site's chronic-rhinitis self-assessment. Side-effecting and potentially collects health-related answers; NOT INVOKED during derivation and no request body is documented.
+      x-apievangelist-undeclared-request-body: true
+      responses:
+        default:
+          description: Not observed — endpoint was not invoked.
+components:
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own route index at `authentication.application-passwords.endpoints.authorization` = https://aerinmedical.com/wp-admin/authorize-application.php. This is the built-in WordPress mechanism for authenticated (administrative) calls; Aerin Medical issues no public credentials, and every operation in this document is reachable ANONYMOUSLY with no credential at all.

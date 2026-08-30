@@ -1,0 +1,168 @@
+openapi: 3.2.0
+info:
+  title: Aerin Medical Site API (WordPress REST) Search API
+  version: em-locator/v1 + aerin + wp/v2
+  summary: Anonymously callable REST surface served by aerinmedical.com — the ENT doctor locator (1,012 treating locations), site search, and the site's form-submission endpoints.
+  description: 'Aerin Medical is a medical-device company and operates no developer API product: it publishes no developer portal, no API documentation, no keys, no SDKs and no terms of use for programmatic access.
+
+
+    Its corporate site, aerinmedical.com, does however serve a WordPress REST API at `https://aerinmedical.com/wp-json` with 321 registered routes across 15 namespaces. Most of the standard `wp/v2` content routes (posts, pages, media, users, taxonomies, types) are BLOCKED to anonymous callers by the iThemes Security plugin and return HTTP 401 `itsec_rest_api_access_restricted` — so, unlike most WordPress sites, the content library here is not machine-readable. What IS anonymously readable is the company''s own first-party doctor-finder plugin (`em-locator/v1`, the surface behind https://aerinmedical.com/find-ent-doctor/), the cross-content `wp/v2/search` index, the route discovery documents, and a small set of `aerin`-namespace POST endpoints that back the site''s lead-capture and NOSE-score assessment forms.
+
+
+    This document was DERIVED by API Evangelist from the provider''s own live route index (`GET https://aerinmedical.com/wp-json/`) plus direct anonymous probing of each route, on 2026-07-31. Every path, method, parameter name, enumeration and response field is taken from that index or from an observed HTTP 200 response; nothing was invented. Routes observed to return 401 anonymously are deliberately omitted. The `aerin` namespace POST routes are listed because they are really registered and really public, but they declare NO argument schema in the route index and they have side effects (they submit leads / contact requests / newsletter sign-ups into the company''s systems), so they were NOT invoked and no request body is documented for them.
+
+
+    Treat this as an incidental site surface, not a supported product API. Aerin Medical offers no availability, versioning or support commitment for it.'
+  contact:
+    name: Aerin Medical, Inc.
+    url: https://aerinmedical.com/contact-us/
+    email: customerservice@aerinmedical.com
+  x-origin:
+  - url: https://aerinmedical.com/wp-json/
+    format: wordpress-rest-route-index
+    version: wp/v2
+  x-apievangelist-method: derived
+  x-apievangelist-derived-from: https://aerinmedical.com/wp-json/ (live route index + per-route anonymous probes, fetched 2026-07-31)
+  x-apievangelist-note: Incidental site API, not a product API. Derived by API Evangelist, not published by Aerin Medical.
+servers:
+- url: https://aerinmedical.com/wp-json
+  description: aerinmedical.com WordPress REST API
+tags:
+- name: Search
+  description: Cross-content-type site search.
+paths:
+  /wp/v2/search:
+    get:
+      tags:
+      - Search
+      operationId: searchSite
+      summary: Search across aerinmedical.com content
+      description: 'Cross-content-type search. 2,242 items were indexed as observed on 2026-07-31. This is the ONLY `wp/v2` collection reachable anonymously — `posts`, `pages`, `media`, `categories`, `tags`, `users`, `comments`, `types`, `taxonomies` and `statuses` all return 401 `itsec_rest_api_access_restricted`, and the `_links.self` hrefs in each result therefore also 401. Results carry `id`, `title`, `url`, `type` and `subtype` only.
+
+
+        All parameters below are declared verbatim in the site''s own route index.'
+      parameters:
+      - name: context
+        in: query
+        description: Scope under which the request is made; determines fields present in response.
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          default: view
+      - name: page
+        in: query
+        description: Current page of the collection.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: per_page
+        in: query
+        description: Maximum number of items to be returned in result set.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: search
+        in: query
+        description: Limit results to those matching a string.
+        required: false
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Limit results to items of an object type.
+        required: false
+        schema:
+          type: string
+          enum:
+          - post
+          - term
+          - post-format
+          default: post
+      - name: subtype
+        in: query
+        description: 'Limit results to items of one or more object subtypes. Note the Aerin-specific custom post types: `location`, `physician`, `alert`, and the `em_designation` taxonomy.'
+        required: false
+        schema:
+          type: array
+          default:
+          - any
+          items:
+            type: string
+            enum:
+            - post
+            - page
+            - location
+            - physician
+            - alert
+            - category
+            - post_tag
+            - em_designation
+            - any
+      - name: exclude
+        in: query
+        description: Ensure result set excludes specific IDs.
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+      - name: include
+        in: query
+        description: Limit result set to specific IDs.
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+      responses:
+        '200':
+          description: A page of search results.
+          headers:
+            X-WP-Total:
+              description: Total items matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResult'
+components:
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        type:
+          type: string
+        subtype:
+          type: string
+        _links:
+          type: object
+          description: Hypermedia links. The `self` href points at a `wp/v2` collection that returns 401 to anonymous callers.
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own route index at `authentication.application-passwords.endpoints.authorization` = https://aerinmedical.com/wp-admin/authorize-application.php. This is the built-in WordPress mechanism for authenticated (administrative) calls; Aerin Medical issues no public credentials, and every operation in this document is reachable ANONYMOUSLY with no credential at all.
