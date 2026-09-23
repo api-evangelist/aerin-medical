@@ -1,0 +1,28 @@
+{
+  "provider": "aerin-medical",
+  "sources": [
+    "_original/aerin-medical-site-openapi.yml"
+  ],
+  "outputs": [
+    "aerin-medical-discovery-api-openapi.yml",
+    "aerin-medical-embed-api-openapi.yml",
+    "aerin-medical-forms-api-openapi.yml",
+    "aerin-medical-locator-api-openapi.yml",
+    "aerin-medical-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aerin-medical-site-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "aerin-medical-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aerin-medical-embed-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aerin-medical-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aerin-medical-locator-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aerin-medical-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
