@@ -1,0 +1,55 @@
+edges:
+- partner_name: FDA 510(k) premarket notifications (IVD / surgical panels)
+  partner: null
+  partner_match: register
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260522
+  category: FDA-cleared IVD / surgical device
+  contract_reference:
+    register: openFDA device/510k (decision_date >= 2016-01-01; panels CH HE IM MI PA TX SU OR)
+    standard: FDA 510(k) premarket clearance (IVD / surgical panels)
+    spec_file: null
+    role: fda-510k-holder
+    registered_name: Aerin Medical, Inc.
+    matched_domain: aerinmedical.com
+    matched_by: domain
+    detected_by: sweep-ivd-diagnostics.py
+    detected: '2026-10-21'
+    register_id: K260522
+    certified_products:
+    - product: FDA 510(k) clearance, General & Plastic Surgery panel
+      product_type: General & Plastic Surgery
+      review_panel: SU
+      lapsed: false
+      latest_decision: '2026-05-18'
+      devices_sample:
+      - Aerin Console
+      - Aerin Medical Stylus
+      - InSeca ARC Stylus, Aerin Console
+      - RHIN1 Stylus
+      - RhinAer+ Stylus
+    signal_note: certified_products = one entry per FDA review PANEL held, never per device; openFDA carries decisions,
+      not withdrawals, so lapsed is always false
+    identity: wikidata Q127837183 'Aerin Medical' P856 https://aerinmedical.com/
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-ivd-diagnostics.py
+  first_seen: '2026-10-21'
+generated: '2026-10-21'
+method: searched
+source:
+- https://api.fda.gov/device/510k.json
+- https://api.fda.gov/device/pma.json
+- https://api.fda.gov/device/registrationlisting.json
+- https://www.accessdata.fda.gov/premarket/ftparea/clia_detail.zip
+- https://ec.europa.eu/tools/eudamed/api/
+- https://www.advamed.org/advameddx/members/
+checked:
+- https://api.fda.gov/device/510k.json
+- https://api.fda.gov/device/pma.json
+- https://api.fda.gov/device/registrationlisting.json
+- https://ec.europa.eu/tools/eudamed/api/
+- https://www.accessdata.fda.gov/premarket/ftparea/clia_detail.zip
+- https://www.advamed.org/advameddx/members/
