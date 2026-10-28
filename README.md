@@ -64,67 +64,99 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Aerin Medical, Inc. — 2565 Leghorn Street, Mountain View, California — develops
-temperature-controlled radiofrequency devices that let ENT physicians treat chronic nasal
-conditions in the office under local anesthetic, without incisions. Two FDA-cleared products,
-delivered through the Aerin Console: the **VivAer Stylus** for nasal airway obstruction and the
-**RhinAer Stylus** for chronic rhinitis. More than 200,000 patients treated as of March 2026.
+Aerin Medical, Inc. is a privately held medical-device company at 2565 Leghorn Street, Mountain View, California, with a Singapore entity at 60 Albert Street. It develops temperature-controlled radiofrequency devices that let ear, nose and throat physicians treat chronic nasal conditions in the office under local anesthetic, without incisions: the VivAer Stylus for nasal airway obstruction and the RhinAer Stylus for chronic rhinitis, both FDA-cleared and delivered through the Aerin Console. More than 200,000 patients have been treated as of March 2026. Aerin Medical operates no developer API programme — no portal, no documentation, no keys, no SDKs, no MCP server, no agent card and no status page. Its corporate site does serve an anonymously readable WordPress REST API, and one namespace of it is a genuinely useful first-party dataset: the doctor finder behind aerinmedical.com/find-ent-doctor/, which returns 1,012 treating ENT locations with coordinates and supports free-text, proximity, product and Center of Excellence filters. The company also publishes a real Coordinated Vulnerability Disclosure Policy for the Aerin Console, though it is not advertised at /.well-known/security.txt.
 
-- https://aerinmedical.com/
-- https://vivaer.com · https://rhinaer.com
+**Areas:** Company · Medical Devices · Healthcare · ENT · Otolaryngology · Rhinology · Radiofrequency Ablation · Nasal Airway Obstruction · Chronic Rhinitis · Physician Locator · Private Company
 
-## API posture
+## Aerin Medical on APIs.io
 
-**No developer API programme.** No portal, no documentation, no keys, no SDKs, no CLI, no MCP
-server, no agent card, no webhooks, no status page, no Postman collection, no sandbox, and no
-terms of use for programmatic access. `/.well-known/*`, `/llms.txt`, `/openapi.json`,
-`/swagger.json` and `/api-docs` all return 404 on aerinmedical.com, vivaer.com and rhinaer.com.
+Everything profiled for Aerin Medical is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aerin-medical/](https://apis.io/providers/aerin-medical/)** — or go straight to one of the APIs or properties below.
 
-What does exist is an **anonymously readable WordPress REST API** at
-`https://aerinmedical.com/wp-json` — 321 routes across 15 namespaces — with an unusual and
-inverted access posture:
+### APIs (1)
 
-- **Open:** the company's own doctor-finder plugin, `em-locator/v1`. `GET
-  /em-locator/v1/locations` returns **1,012 treating ENT locations** with practice name,
-  formatted address, phone, latitude/longitude and public permalink, and supports free-text
-  `search`, `lat`/`lng` proximity ranking, `product` (RhinAer 783 / VivAer 920) and
-  `designation` (60 Centers of Excellence) filters, paged with `X-WP-Total` /
-  `X-WP-TotalPages`. `Access-Control-Allow-Origin: *`. This is a genuinely useful public
-  dataset.
-- **Open:** `wp/v2/search` (2,242 items), oEmbed, the route-discovery documents, the footer.
-- **Closed:** every standard `wp/v2` content collection — posts, pages, media, users,
-  taxonomies — returns `401 itsec_rest_api_access_restricted`.
+- [Aerin Medical Website (WordPress REST)](https://apis.io/apis/aerin-medical/aerinmedical-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Aerin Medical website at aerinmedical.com: the route index of the site's content management system,…
 
-So the routes holding public marketing copy are locked, while the open locator route
-over-returns: each record echoes the site's Google Maps API key and internal CRM fields
-(Salesforce id, account number, named sales rep) that appear nowhere in the rendered directory.
-Recorded as an observation in `security/aerin-medical-domain-security.yml` — the values
-themselves are deliberately not reproduced in this repository.
+### Published properties
 
-Aerin Medical does publish a real **Coordinated Vulnerability Disclosure Policy**
-(https://aerinmedical.com/cybersecurity/): report to `security@aerinmedical.com`,
-acknowledgement within 5 business days, safe harbour offered, scope limited to the Aerin
-Console. It is not advertised at `/.well-known/security.txt`, which 404s — publishing an RFC
-9116 file is the cheapest discovery win available here.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Artifacts
+#### Collections (1)
 
-| Path | Type | Method |
-|---|---|---|
-| `openapi/aerin-medical-site-openapi.yml` | OpenAPI 3.1, 15 operations | derived from the live route index + probing |
-| `overlays/aerin-medical-site-overlay.yaml` | Overlay 1.0.0 | generated |
-| `authentication/aerin-medical-authentication.yml` | Authentication | derived + probed |
-| `conventions/aerin-medical-conventions.yml` | Conventions | derived |
-| `errors/aerin-medical-problem-types.yml` | ErrorCatalog | derived from observed responses |
-| `data-model/aerin-medical-data-model.yml` | DataModel | derived |
-| `lifecycle/aerin-medical-lifecycle.yml` | Lifecycle | derived |
-| `conformance/aerin-medical-conformance.yml` | Conformance | searched |
-| `security/aerin-medical-vulnerability-disclosure.yml` | VulnerabilityDisclosure | searched |
-| `security/aerin-medical-domain-security.yml` | DomainSecurity | probed |
-| `well-known/aerin-medical-well-known.yml` | WellKnown | probed (all 404) |
-| `skills/` | AgentSkill ×2 | generated |
-| `llms/aerin-medical-llms.txt` | LLMsTxt | generated |
+Postman and Open Collection request collections.
 
-Deliberately **not** written, because nothing real was found: `a2a/` (agent card — search-only
-by contract), `mcp/`, `packages/`, `scopes/`, `asyncapi/`, `grpc/`, `cli/`, `components/`,
-`sandbox/`, `changelog/`, `rate-limits/`, `plans/`, `security/…-trust-center.yml`.
+- [Moved to /providers/aerin-medical/](https://apis.io/collections/aerin-medical/open-aerin-medical-site/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Aerin Medical Authentication](https://apis.io/security/aerin-medical/aerin-medical-authentication/)
+- [Aerin Medical Domain Security](https://apis.io/security/aerin-medical/aerin-medical-domain-security/)
+- [Aerin Medical Vulnerability Disclosure](https://apis.io/security/aerin-medical/aerin-medical-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aerinmedical.com/)
+- [Documentation](https://aerinmedical.com/ifu/)
+- [Support](https://aerinmedical.com/contact-us/)
+- [Blog](https://aerinmedical.com/company/news-and-media/)
+- [Security](https://aerinmedical.com/cybersecurity/)
+- [Compliance](https://aerinmedical.com/compliance/)
+- [Terms of service](https://aerinmedical.com/general-terms-of-use/)
+- [Privacy policy](https://aerinmedical.com/privacy-policy/)
+- [GitHub](https://github.com/AerinMedical)
+
+## API Evangelist rating
+
+**Kin Score 24.2** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 28.9 |
+
+**Agent readiness 4.1** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 28.1** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aerin-medical/](https://apis.io/providers/aerin-medical/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aerin Medical: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aerin-medical/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
